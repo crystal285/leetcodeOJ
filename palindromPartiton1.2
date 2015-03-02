@@ -1,0 +1,45 @@
+//using dp
+public class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> lists = new ArrayList<List<String>>();
+        if(s.length() == 0)
+            return lists;
+        List<String> list = new ArrayList<String>();
+        boolean[][] matrix = new boolean[s.length()][s.length()];
+        check(s,matrix);
+        search(lists,list,s,0,matrix);
+        return lists;
+    }
+    
+    private void search(List<List<String>> lists, List<String> list, String s, int start,boolean[][] matrix)
+    {
+        if(start == s.length())
+        {
+            lists.add(new ArrayList<String>(list));
+            return;
+        }
+        for(int i = start; i < s.length(); i++)
+        {
+            if(matrix[start][i])
+            {
+                list.add(s.substring(start,i+1));
+                search(lists,list,s,i+1,matrix);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+    
+    
+    private void check(String s, boolean[][] matrix)
+    {
+    for(int i = s.length()-1; i >= 0; i--)
+    {
+        for(int j = i; j < s.length(); j++)
+        {
+            if(((j-i) < 2 || matrix[i+1][j-1]) && s.charAt(i) == s.charAt(j))
+                matrix[i][j] = true;
+           
+        }
+    }
+    }
+}
