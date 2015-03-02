@@ -1,3 +1,4 @@
+//using dfs without dp, high time complexity
 public class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> lists = new ArrayList<List<String>>();
