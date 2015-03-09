@@ -1,0 +1,18 @@
+public class Solution {
+    public double pow(double x, int n) {
+        if(n < 0)
+        return 1/find(x,-n);
+        else
+        return find(x,n);
+    }
+    private double find(double x, int n)
+    {
+        if(n == 0)
+            return 1;
+        double half = find(x,n/2);
+        if(n % 2 == 0)
+            return half * half;
+            
+        return half*half* x;
+    }
+}
