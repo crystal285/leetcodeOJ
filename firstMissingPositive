@@ -1,0 +1,40 @@
+public class Solution {
+    public int firstMissingPositive(int[] A) {
+        if (A == null || A.length == 0) {
+            return 1;
+        }
+        int len = A.length;
+        int p = 0;
+        while (p < len) {
+            if (A[p] == p + 1) {
+                // the number is in its correct position~
+                p++;
+                continue;
+            } else if (A[p] <= 0 || A[p] > len) {
+                // the number is out of range, leave it alone then.
+                p++;
+                continue;
+            } else if (A[p] == A[A[p] - 1]) {
+                // this is an important case!!! I missed it just now~
+                p++;
+                continue; 
+            }
+            swop(A, p, A[p] - 1);
+        }
+        // now check and find the first number that is not in correct position
+        p = 0;
+        while (p < len) {
+            if (A[p] != p + 1) {
+                return p + 1;
+            }
+            p++;
+        }
+        return p + 1;
+    }
+
+    private void swop(int[] A, int x, int y) {
+        int temp = A[x];
+        A[x] = A[y];
+        A[y] = temp;
+    }
+}
