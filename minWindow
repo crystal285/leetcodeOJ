@@ -1,0 +1,72 @@
+public class Solution {
+    public static String minWindow(String S, String T) {
+	        Map<Character,Integer> map1 = new HashMap<Character,Integer>();
+	        Map<Character,Integer> map2 = new HashMap<Character,Integer>();
+	        for(Character c : T.toCharArray())
+	        {
+	            if(!map1.containsKey(c))
+	                map1.put(c,0);
+	            map1.put(c,map1.get(c)+1);
+	        }
+	        int count = 0;
+	        int min = Integer.MAX_VALUE;
+	        char[] str = S.toCharArray();
+	        int start = 0;
+	        int end = 0;
+	        int x = 0;
+	        int y = 0;
+	        while(end < str.length && !map1.containsKey(str[end]))
+	            {
+	                end++;
+	                start++;
+	            }
+	        if(end == str.length)
+	            return "";
+	        while(end < str.length)
+	        {
+	            char c = str[end];
+	            if(map1.containsKey(c))
+	            {
+	                if(!map2.containsKey(c))
+	                {
+	                    map2.put(c,0);
+	                }
+	                if(map2.get(c) < map1.get(c))
+	                {
+	                    count++;
+	                }
+	                 map2.put(c,map2.get(c)+1);
+	            }
+	            end++;
+	            if(count == T.length())
+	            {
+	                while(true)
+	                {
+	                    char ch = str[start];
+	                    if(!map1.containsKey(ch))
+	                    {
+	                        start++;
+	                        continue;
+	                    }
+	                    if(map2.get(ch) > map1.get(ch))
+	                    {
+	                        map2.put(ch,map2.get(ch)-1);
+	                        start++;
+	                        continue;
+	                    }
+	                    else
+	                        break;
+	                }
+	                int len = end - start;
+	                    if(len < min)
+	                    {
+	                    min = len;
+	                    x = start;
+	                    y = end;
+	                    }
+	            }
+	           
+	        }
+	        return S.substring(x,y);
+	    }
+}
