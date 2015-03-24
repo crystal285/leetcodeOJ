@@ -1,0 +1,28 @@
+//dp, dp[i] = dp[i-1] if char[i-1] is not 0, dp[i] = dp[i-1] + dp[i-2] if substring(i-2,i) is from 1 to 26
+public class Solution {
+    public int numDecodings(String s) {
+        if(s.length() == 0)
+            return 0;
+        int len = s.length();
+        char[] array = s.toCharArray();
+        int[] dp = new int[len+1];
+        for(int i = 0; i <= len; i++)
+            dp[i] = 0;
+        dp[0] = 1;
+        if(array[0] == '0')
+            return 0;
+        dp[1] = 1;
+        for(int i = 1; i < len; i++)
+        {
+            if(array[i] >= '1' && array[i] <= '9')
+            {
+                dp[i+1] = dp[i];
+            }
+            if(array[i-1] == '1' && array[i] >= '0' && array[i] <= '9' || array[i-1] == '2' && array[i] >= '0' && array[i] <= '6')
+            {
+                dp[i+1] = dp[i+1] + dp[i-1];
+            }
+        }
+        return dp[len];
+    }
+}
