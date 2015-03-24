@@ -1,0 +1,34 @@
+//dfs version. if the node is not cloned before, recursively find. if the node is cloned before, just add to the adjacent list.
+/**
+ * Definition for undirected graph.
+ * class UndirectedGraphNode {
+ *     int label;
+ *     List<UndirectedGraphNode> neighbors;
+ *     UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+ * };
+ */
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null)
+            return null;
+        HashMap<Integer,UndirectedGraphNode> map = new HashMap<Integer,UndirectedGraphNode>();
+        return find(node,map);
+    }
+    public UndirectedGraphNode find(UndirectedGraphNode node, HashMap<Integer,UndirectedGraphNode> map)
+    {
+        UndirectedGraphNode node1 = new UndirectedGraphNode(node.label);
+        map.put(node.label,node1);
+        for(UndirectedGraphNode current : node.neighbors)
+        {
+            if(map.containsKey(current.label))
+            {
+                node1.neighbors.add(map.get(current.label));
+            }
+            else
+                {
+                node1.neighbors.add(find(current,map)); 
+                }
+        }
+        return node1;
+    }
+}
