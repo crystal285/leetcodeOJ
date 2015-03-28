@@ -1,0 +1,42 @@
+//iteration version. Stack stores all the right nodes
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode cur = root;
+        while(cur != null)
+        {
+            list.add(cur.val);
+            while(cur.left != null)
+            {
+                list.add(cur.left.val);
+                if(cur.right != null)
+                {
+                    stack.push(cur.right);
+                }
+                cur = cur.left;
+            }
+            if(cur.right != null)
+            {
+                cur = cur.right;
+            }
+            else if(cur.right == null)
+            {
+                if(!stack.isEmpty())
+                    cur = stack.pop();
+                else
+                    break;
+            }
+        }
+        return list;
+    }
+}
