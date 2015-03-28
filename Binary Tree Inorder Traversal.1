@@ -1,0 +1,24 @@
+//recursion version
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> inorder = new ArrayList<Integer>();
+        traversal(root,inorder);
+        return inorder;
+    }
+    public void traversal(TreeNode root,List<Integer> inorder){
+        if(root == null) return;
+        traversal(root.left,inorder);
+        inorder.add(root.val);
+        traversal(root.right,inorder);
+    }
+}
+ 
