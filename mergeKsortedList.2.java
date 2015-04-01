@@ -1,4 +1,4 @@
-//mergesort recursion version. time O(nklogk) space O(logk)
+//mergesort nonrecursion verison. time O(nklogk) space O(1)
 /**
 
  * Definition for singly-linked list.
@@ -29,23 +29,33 @@ public class Solution {
 
             return null;
 
-        return mergeSort(lists,0,lists.size()-1);
+        int end = lists.size()-1;
+
+        while(end > 0)
+
+        {
+
+            int start = 0;
+
+            while(start < end)
+
+            {
+
+                lists.set(start, merge(lists.get(start), lists.get(end)));
+
+                start++;
+
+                end--;
+
+            }
+
+        }
+
+        return lists.get(0);
 
     }
 
-    public ListNode mergeSort(List<ListNode> lists, int low, int high)
-
-    {
-
-        if(low == high)
-
-            return lists.get(low);
-
-        int mid = (low + high) / 2;
-
-        return merge(mergeSort(lists,low,mid),mergeSort(lists,mid+1,high));
-
-    }
+   
 
     public ListNode merge(ListNode l1, ListNode l2)
 
