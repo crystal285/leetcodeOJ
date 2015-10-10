@@ -24,8 +24,8 @@ public class Solution {
             }
             else if(newInterval.end >= t.start)
             {
-                newInterval = new Interval(Math.min(t.start, newInterval.start), 
-                Math.max(newInterval.end, t.end));
+                newInterval.start = Math.min(t.start, newInterval.start);
+                newInterval.end = Math.max(newInterval.end, t.end);
             }
         }
         lists.add(newInterval);
