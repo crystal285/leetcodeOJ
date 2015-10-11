@@ -1,46 +1,71 @@
-public class binaryHeap {
-  List<Integer> H = new ArrayList<Integer>();
+package datarace;
 
-  public binaryHeap() {
+import java.util.*;
+
+public class maxHeap {
+  static ArrayList<Integer> list = null;
+  public maxHeap()
+  {
+    list = new ArrayList<Integer>();
   }
-
-  public void insert(int vertex,int[] band) {
-    H.add(vertex);
-    moveUp(H.size() - 1,band);
+  public void add(int num)
+  {
+    list.add(num);
+    shiftUp(list.size()-1);
   }
-
-  void moveUp(int pos,int[] band) {
-    while (pos > 0) {
-      int parent = (pos - 1) / 2;
-      if (band[H.get(pos)] <= band[H.get(parent)] ) {
+  public void shiftUp(int pos)
+  {
+    while(pos > 0)
+    {
+      int parent = (pos-1) / 2;
+      if(list.get(pos) <= list.get(parent))
         break;
-      }
-      Collections.swap(H, pos, parent);
+      Collections.swap(list, pos, parent);
       pos = parent;
     }
   }
-
-  public int maximum(int[] band) {
-    int removedNode = H.get(0);
-    int lastNode = H.remove(H.size() - 1);
-    if (!H.isEmpty()) {
-      H.set(0, lastNode);
-      moveDown(0,band);
+  public int poll()
+  {
+    int min = list.get(0);
+    int last = list.remove(list.size()-1);
+    if(!list.isEmpty())
+    {
+    list.set(0, last);
+    shiftDown(0);
     }
-    return removedNode;
+    return min;
   }
-
-  void moveDown(int pos, int[] band) {
-    while (pos < H.size() / 2) {
-      int child = 2 * pos + 1;
-      if (child < H.size() - 1 && band[H.get(child)] < band[(H.get(child + 1))] ) {
-        ++child;
-      }
-      if (band[H.get(pos)] >= band[(H.get(child))]) {
+  public void shiftDown(int pos)
+  {
+    while(pos < list.size() / 2)
+    {
+      int child = pos*2 + 1;
+      if(child < list.size()-1 && list.get(child) < list.get(child+1))
+        child++;
+      if(list.get(pos) >= list.get(child))
         break;
-      }
-      Collections.swap(H, pos, child);
+      Collections.swap(list,pos,child);
       pos = child;
     }
+  }
+
+  public int peek()
+  {
+    return list.get(0);
+  }
+    public static int size()
+    {
+      return list.size();
+    }
+
+  public static void main(String[] args)
+  {
+    maxHeap heap = new maxHeap();
+    heap.add(3);
+    heap.add(1);
+    heap.add(5);
+    heap.add(0);
+    System.out.println(heap.poll());
+    System.out.println(heap.poll());
   }
 }
