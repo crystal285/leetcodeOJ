@@ -1,5 +1,9 @@
+package datarace;
+
+import java.util.*;
+
 public class minHeap {
-	ArrayList<Integer> list = null;
+	static ArrayList<Integer> list = null;
 	public minHeap()
 	{
 		list = new ArrayList<Integer>();
@@ -43,6 +47,16 @@ public class minHeap {
 			Collections.swap(list,pos,child);
 			pos = child;
 		}
+	}
+
+	public static int size()
+	{
+		return list.size();
+	}
+
+	public int peek()
+	{
+		return list.get(0);
 	}
 
 	public static void main(String[] args)
